@@ -1,5 +1,3 @@
-/* Your CSS styles go here */
-
 body {
     font-family: 'Helvetica Neue', sans-serif;
     background-color: #f2f2f2;
@@ -16,22 +14,28 @@ body {
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: 48px;
     color: #ff6600;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 30px;
 }
 
+h2 {
+    font-size: 40px;
+    color: #e18f42;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 button {
     padding: 10px 20px;
     background-color: #ff6600;
     color: #fff;
-    font-size: 1.2rem;
+    font-size: 24px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease;
 }
 
@@ -39,7 +43,52 @@ button:hover {
     background-color: #ff8000;
 }
 
-a{
+a {
     text-decoration: none;
     color: #fff;
+}
+
+form {
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+input[type="number"] {
+    width: 40%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #e18f42;
+}
+::placeholder {
+    color: #e18f42;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #e18f42;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #e18f42;
+}
+
+form button[type="submit"] {
+    margin-top: 20px;
 }
