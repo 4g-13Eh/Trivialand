@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    /* checkedSettings(); */
 
     document.getElementById('settingsForm').addEventListener("submit", (e) => {
         e.preventDefault();
@@ -11,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const difficulty = document.getElementById('difficulty').value;
         const type = document.getElementById('type').value;
 
-        let url = `https://opentdb.com/api.php?amount=${amount}&`
+        let url = `https://opentdb.com/api.php?amount=${amount}`
         if (category !== 'any'){
             url += `&category=${category}`
         }
@@ -26,13 +25,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log("Fetching data...");
         fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.error("Error fetching data:", error);
-            });
+        .then(response => response.json())
+        .then(data => {
+            console.log("Fetched data:", data);
+        })
+        .catch(error => {
+            console.error("Error fetching data:", error);
+        });
+        
+        const settingsForm = document.getElementById('settings');
+        settingsForm.style.display = 'none';
+
+        const settingsDone = document.getElementById('settingsDone');
+        settingsDone.style.display = 'block';
 
     });
 
