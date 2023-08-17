@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (type !== 'any') {
                 url += `&type=${type}`;
             }
+            url += `&encode=base64`;	
         
             return url;
         }
@@ -42,9 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 questionsarray.forEach((questionObject, index) =>{
                     
                     const question = questionObject.question;
+                    decodedQuestion = atob(question);
 
                     questionElement = document.createElement('div');
-                    questionElement.textContent = `${question}`;
+                    questionElement.textContent = `${decodedQuestion}`;
                     questionElement.classList.add('questionBox');
 
                     const questionsContainer = document.getElementById("questionsContainer");
