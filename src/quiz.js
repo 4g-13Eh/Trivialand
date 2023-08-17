@@ -10,34 +10,54 @@ document.addEventListener('DOMContentLoaded', () => {
         const difficulty = document.getElementById('difficulty').value;
         const type = document.getElementById('type').value;
 
-        let url = `https://opentdb.com/api.php?amount=${amount}`
-        if (category !== 'any'){
-            url += `&category=${category}`
-        }
-        if (difficulty !== 'any'){
-            url += `&difficulty=${difficulty}`
-        }
-        if (type !== 'any'){
-            url += `&type=${type}`
+        function buildAPI(amount, category, difficulty, type){
+            let url = `https://opentdb.com/api.php?amount=${amount}`;
+        
+            if (category !== 'any') {
+                url += `&category=${category}`;
+            }
+            if (difficulty !== 'any') {
+                url += `&difficulty=${difficulty}`;
+            }
+            if (type !== 'any') {
+                url += `&type=${type}`;
+            }
+        
+            return url;
         }
 
+        let url = buildAPI(amount, category, difficulty, type);
+
         console.log("Final URL:", url);
+
+        settingsForm.style.display = 'none';
+        questionsContainer.style.display = 'block';
 
         console.log("Fetching data...");
         fetch(url)
         .then(response => response.json())
         .then(data => {
-            console.log("Fetched data:", data);
+            if (data.response_code === 0){
+                const questionsarray = data.results;
+                questionsarray.forEach((questionObject, index) =>{
+                    
+                    const question = questionObject.question;
+
+                    questionElement = document.createElement('div');
+                    questionElement.textContent = `${question}`;
+                    questionElement.classList.add('questionBox');
+
+                    const questionsContainer = document.getElementById("questionsContainer");
+
+                    questionsContainer.appendChild(questionElement);
+                })
+                console.log(data)
+            }
         })
         .catch(error => {
             console.error("Error fetching data:", error);
         });
-        
-        const settingsForm = document.getElementById('settings');
-        settingsForm.style.display = 'none';
 
-        const settingsDone = document.getElementById('settingsDone');
-        settingsDone.style.display = 'block';
 
     });
 
