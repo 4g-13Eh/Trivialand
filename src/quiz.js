@@ -40,13 +40,35 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             if (data.response_code === 0){
                 const questionsarray = data.results;
-                questionsarray.forEach((questionObject, index) =>{
+                questionsarray.forEach((questionObject) =>{
                     
                     const question = questionObject.question;
                     decodedQuestion = atob(question);
 
+                    const incorrectAnswers = questionObject.incorrect_answers;
+                    const correctAnswer = questionObject.correct_answer;
+                    const answers = [];
+                    answers.push(correctAnswer);
+                    answers.push(...incorrectAnswers);
+                    answers.sort();
+                    decodedAnswers = answers.map((answer) => {
+                        return atob(answer);
+                    });
+                    console.log(decodedAnswers);
+
                     questionElement = document.createElement('div');
                     questionElement.textContent = `${decodedQuestion}`;
+                    decodedAnswers.forEach((answer) => {
+                        answerElement = document.createElement('div');
+
+                        radioInput = document.createElement('input');
+                        radioInput.type = 'radio';
+                        radioInput.name = 'answer';
+                        radioInput.value = `${answer}`;
+                        answerElement.appendChild(radioInput);
+                        
+                        questionElement.appendChild(answerElement);
+                    });
                     questionElement.classList.add('questionBox');
 
                     const questionsContainer = document.getElementById("questionsContainer");
