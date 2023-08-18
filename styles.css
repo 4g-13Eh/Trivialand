@@ -112,3 +112,18 @@ form button[type="submit"] {
     min-height: auto;
     overflow: hidden;
 }
+
+.radioLabel {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+.radiobtn {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.subbtn {
+    font-size: 10px;
+}
