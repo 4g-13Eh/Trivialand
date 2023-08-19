@@ -130,5 +130,10 @@ form button[type="submit"] {
 }
 
 .scorefield{
-    font-family: 'Games', sans-serif;
+    font-family: 'Press Start 2P', cursive;
+    top: 5px;
+    left: 5px;
+    color: #ef7837;
+    position: absolute;
+    font-size: 20px;
 }

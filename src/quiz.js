@@ -1,11 +1,10 @@
+let score = 0;
+
 document.addEventListener('DOMContentLoaded', () => {
     const settingsForm = document.getElementById('settingsForm');
     const questionsContainer = document.getElementById('questionsContainer');
+
     let currentQuestion = 0;
-    let score = 0;
-    score.createElement('div');
-    score.textContent = `Score: ${score}`;
-    score.classList.add('scorefield');
     let questionsArray = [];
 
     settingsForm.addEventListener("submit", (e) => {
@@ -27,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 if (data.response_code === 0) {
                     questionsArray = data.results;
-                    showQuestion(questionsArray, currentQuestion);
+                    showQuestion(questionsArray, currentQuestion, score);
                 }
             })
             .catch(error => console.log(error));
@@ -58,20 +57,24 @@ function hideSettingsDisplayQuestions(settingsForm, questionsContainer){
 };
 
 function checkAnswers(correctAnswer, userAnswer){
-    if (atob(correctAnswer) === userAnswer){
+    let isCorrect = atob(correctAnswer) === userAnswer;
+    if (isCorrect){
         console.log("Correct answer");
+        return 100;
     } else {
         console.log("Wrong answer");
+        return -100;
     }
 }
 
-function showQuestion(questionsArray, currentQuestionIndex){
+function showQuestion(questionsArray, currentQuestionIndex, score){
     const questionObject = questionsArray[currentQuestionIndex];
     const question = questionObject.question;
     let decodedQuestion = atob(question);
 
     const incorrectAnswers = questionObject.incorrect_answers;
     const correctAnswer = questionObject.correct_answer;
+    console.log("Correct answer:", atob(correctAnswer));
     const answers = [];
     answers.push(correctAnswer);
     answers.push(...incorrectAnswers);
@@ -114,17 +117,19 @@ function showQuestion(questionsArray, currentQuestionIndex){
         let userAnswer = document.querySelector('input[name="answer"]:checked');
         if (userAnswer) {
             let selectedAnswer = userAnswer.value;
-            checkAnswers(questionObject.correct_answer, selectedAnswer);
+            let points = checkAnswers(questionObject.correct_answer, selectedAnswer);;
 
             let radioInputs = questionElement.querySelectorAll('.radiobtn');
             radioInputs.forEach(radio => {
                 radio.disabled = true;
             });
-            
+
             questionElement.style.display = 'none';
+            score = updateScore(points, score);
+            updateScoreDisplay(score);
             currentQuestionIndex++;
             if (currentQuestionIndex < questionsArray.length) {
-                showQuestion(questionsArray, currentQuestionIndex, questionsArray[currentQuestionIndex]);
+                showQuestion(questionsArray, currentQuestionIndex, score);
             } else {
                 console.log("Quiz is over");
             }
@@ -135,3 +140,14 @@ function showQuestion(questionsArray, currentQuestionIndex){
     questionsContainer.appendChild(questionElement);
 }
 
+function updateScoreDisplay(score){
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    scoreDisplay.textContent = `Score: ${score}`;
+}
+
+function updateScore(points, currentScore) {
+    currentScore += points;
+    updateScoreDisplay(currentScore);
+    console.log("Score:", score);
+    return currentScore;
+}
