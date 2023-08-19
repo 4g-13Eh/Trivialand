@@ -30,8 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
             .catch(error => console.log(error));
-    }
-    );
+    });
 });
 
 function buildAPI(amount, category, difficulty, type){
@@ -59,10 +58,8 @@ function hideSettingsDisplayQuestions(settingsForm, questionsContainer){
 function checkAnswers(correctAnswer, userAnswer){
     let isCorrect = atob(correctAnswer) === userAnswer;
     if (isCorrect){
-        console.log("Correct answer");
         return 100;
     } else {
-        console.log("Wrong answer");
         return -100;
     }
 }
@@ -93,7 +90,7 @@ function showQuestion(questionsArray, currentQuestionIndex, score){
         radioInput.type = 'radio';
         radioInput.name = 'answer';
         radioInput.value = `${answer}`;
-        radioInput.id = `${answer.replace(/\s+/g, '-').toLowerCase()}`;
+        radioInput.id = `${answer.replace(/\s+/g, '-').toLowerCase()}`; // replace spaces with dashes and make lowercase
         radioInput.id += Math.floor(Math.random() * 1000); // just in case there are duplicate answers
         radioInput.classList.add('radiobtn');
         answerElement.appendChild(radioInput);
@@ -108,21 +105,23 @@ function showQuestion(questionsArray, currentQuestionIndex, score){
     });
 
     let subbtn = document.createElement('button');
-    subbtn.textContent = 'Antwort abschicken';
+    subbtn.textContent = 'Nächste Frage';
     subbtn.id = 'subbtn';
     subbtn.classList.add('subbtn');
+    subbtn.disabled = true;
     questionElement.appendChild(subbtn);
+
+    questionElement.addEventListener("change", () => {
+        console.log("Change event triggered");
+        const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+        subbtn.disabled = !selectedAnswer;
+    });
 
     subbtn.addEventListener('click', () => {
         let userAnswer = document.querySelector('input[name="answer"]:checked');
         if (userAnswer) {
             let selectedAnswer = userAnswer.value;
             let points = checkAnswers(questionObject.correct_answer, selectedAnswer);;
-
-            let radioInputs = questionElement.querySelectorAll('.radiobtn');
-            radioInputs.forEach(radio => {
-                radio.disabled = true;
-            });
 
             questionElement.style.display = 'none';
             score = updateScore(points, score);
@@ -148,6 +147,5 @@ function updateScoreDisplay(score){
 function updateScore(points, currentScore) {
     currentScore += points;
     updateScoreDisplay(currentScore);
-    console.log("Score:", score);
     return currentScore;
 }
