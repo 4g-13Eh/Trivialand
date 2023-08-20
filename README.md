@@ -9,6 +9,7 @@ Live-URL: (https://dedf1sh-trivialand.netlify.app)
 - [Features](#features)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
+- [Technologies Used](#technologies-used)
 - [License](#license)
 
 ## Features
@@ -39,6 +40,13 @@ Live-URL: (https://dedf1sh-trivialand.netlify.app)
 3. Answer the questions within the time limit and see your score update.
 4. If the timer runs out on the last question, the quiz will automatically end and show your final score.
 5. At the end of the quiz, your score will be displayed along with a congratulatory message.
+
+## Technologies Used
+- HTML5
+- CSS
+- JavaScript
+- Fetch API for API calls (Used the Open Trivia Database API for quiz questions)
+- Google Fonts for typography
 
 ## License
 This project is licensed under the MIT License.
