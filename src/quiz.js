@@ -1,9 +1,14 @@
 let score = 0;
 let timer;
+let scoreDisplay;
+let scoreValue; 
 
 document.addEventListener('DOMContentLoaded', () => {
     const settingsForm = document.getElementById('settingsForm');
     const questionsContainer = document.getElementById('questionsContainer');
+    scoreDisplay = document.getElementById('scoreDisplay');
+    scoreValue = document.getElementById('scoreValue');
+
 
     let currentQuestion = 0;
     let questionsArray = [];
@@ -27,7 +32,22 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 if (data.response_code === 0) {
                     questionsArray = data.results;
+                    localStorage.setItem('amount', amount);
                     showQuestion(questionsArray, currentQuestion, score);
+                    scoreDisplay.style.display = 'block';
+                } else {
+                    const errorMessage = document.createElement('div');
+                    errorMessage.textContent = `Fehler: Die angegebenen Einstellungen haben keine Ergebnisse geliefert. Bitte versuchen Sie es erneut mit anderen Einstellungen.`;
+                    errorMessage.classList.add('errorMessage');
+                    questionsContainer.appendChild(errorMessage);
+                    const backbtn = document.createElement('button');
+                    backbtn.textContent = 'Zurück';
+                    backbtn.id = 'backbtn';
+                    backbtn.classList.add('backbtn');
+                    backbtn.addEventListener('click', () => {
+                        window.location.href = '../pages/index.html';
+                    });
+                    questionsContainer.appendChild(backbtn);
                 }
             })
             .catch(error => console.log(error));
@@ -136,6 +156,7 @@ function showQuestion(questionsArray, currentQuestionIndex, score){
 
             score = updateScore(points, score);
             updateScoreDisplay(score);
+            scoreValue.value = score;
             
             currentQuestionIndex++;
             if (currentQuestionIndex < questionsArray.length) {
@@ -143,6 +164,10 @@ function showQuestion(questionsArray, currentQuestionIndex, score){
                 countDown(10, currentQuestionIndex, questionsArray);
             } else {
                 console.log("Quiz is over");
+                const timerDisplay = document.getElementById('timerDisplay');
+                timerDisplay.textContent = `Quiz ist vorbei!`;
+                localStorage.setItem('score', score);
+                window.location.href = '../pages/score.html';
             }
         }
     });
