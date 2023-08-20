@@ -26,11 +26,11 @@ Live-URL: (https://dedf1sh-trivialand.netlify.app)
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/yourusername/quiz-time-app.git
+   git clone git@github.com:HUE-Dedf1sh/Trivialand.git
 
 2. Navigate to the project directory
    ```bash
-   cd quiz-time-app
+   cd Trivialand
 
 3. Open the index.html file in your preferred web browser.
 
