@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let score = localStorage.getItem('score');
     let amount = localStorage.getItem('amount');
 
-    const scoreDisplay = document.getElementById('scoreDisplay');
+    const scoreDisplay = document.getElementById('real');
     scoreDisplay.textContent = score;
 
     showCeleb(score, amount);
@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function showCeleb(score, amount){
-    const picContainer = document.getElementById('picContainer');
     const congratsContainer = document.getElementById('congratsContainer');
     const congrats = document.createElement('h4');
     if (score == amount){

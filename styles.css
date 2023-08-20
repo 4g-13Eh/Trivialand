@@ -95,7 +95,6 @@ form button[type="submit"] {
 
 #questionsContainer {
     display: none;
-    top: 0;
     background-color: #f2f2f2;
     text-align: center;
 }
@@ -159,24 +158,21 @@ form button[type="submit"] {
     align-self: center;
     background-color: #f2f2f2;
     text-align: center;
-
 }
 
 .backbtn{
     text-align: center;
     margin-top: 20px;
-    
 }
 
 #scoreDisplay{
     font-family: 'Press Start 2P', cursive;
     color: #ef7837;
-    position: relative;
+    position: absolute;
     font-size: x-large;
     text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 5px;
+    left: 5px;
 }
 
 #congratsContainer{
@@ -202,3 +198,13 @@ form button[type="submit"] {
     margin: 0 auto;
     margin-top: 20px;
 }
+
+.score{
+    font-family: 'Press Start 2P', cursive;
+    color: #ef7837;
+    position: relative;
+    font-size: x-large;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
