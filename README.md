@@ -1,6 +1,7 @@
 # Trivialand
 
 This is a web-based quiz application that allows users to test their knowledge on various topics. Users can customize their quiz settings, answer questions, and see their final score at the end.
+
 Live-URL: (https://dedf1sh-trivialand.netlify.app/pages/quiz.html)
 
 ## Table of Contents
