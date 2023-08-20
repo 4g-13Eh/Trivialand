@@ -221,5 +221,7 @@ function handleTimeout(currentQuestionIndex, questionsArray){
         showQuestion(questionsArray, currentQuestionIndex, score);
     } else {
         console.log("Quiz is over");
+        localStorage.setItem('score', score);
+        window.location.href = '../pages/score.html';
     }
 }
