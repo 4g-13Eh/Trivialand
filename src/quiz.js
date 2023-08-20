@@ -1,4 +1,5 @@
 let score = 0;
+let timer;
 
 document.addEventListener('DOMContentLoaded', () => {
     const settingsForm = document.getElementById('settingsForm');
@@ -80,8 +81,15 @@ function showQuestion(questionsArray, currentQuestionIndex, score){
         return atob(answer);
     });
 
+    while (questionsContainer.firstChild) {
+        questionsContainer.removeChild(questionsContainer.firstChild);
+    }
+
     let questionElement = document.createElement('div');
+    questionElement.id = `question-${currentQuestionIndex}`;
     questionElement.textContent = `${decodedQuestion}`;
+    questionElement.classList.add('questionBox');
+
 
     decodedAnswers.forEach((answer) => {
         let answerElement = document.createElement('div');
@@ -124,19 +132,24 @@ function showQuestion(questionsArray, currentQuestionIndex, score){
             let points = checkAnswers(questionObject.correct_answer, selectedAnswer);;
 
             questionElement.style.display = 'none';
+            clearInterval(timer);
+
             score = updateScore(points, score);
             updateScoreDisplay(score);
+            
             currentQuestionIndex++;
             if (currentQuestionIndex < questionsArray.length) {
                 showQuestion(questionsArray, currentQuestionIndex, score);
+                countDown(10, currentQuestionIndex, questionsArray);
             } else {
                 console.log("Quiz is over");
             }
         }
     });
 
-    questionElement.classList.add('questionBox');
     questionsContainer.appendChild(questionElement);
+
+    countDown(10, currentQuestionIndex, questionsArray);
 }
 
 function updateScoreDisplay(score){
@@ -148,4 +161,36 @@ function updateScore(points, currentScore) {
     currentScore += points;
     updateScoreDisplay(currentScore);
     return currentScore;
+}
+
+function countDown(seconds, currentQuestionIndex, questionsArray){
+    clearInterval(timer); // clear any existing timers
+
+    let remainingSeconds = seconds;
+    const timerDisplay = document.getElementById('timerDisplay');
+    timerDisplay.textContent = `Übrige Zeit: ${remainingSeconds}`;
+
+    timer = setInterval(() => {
+        remainingSeconds--;
+        timerDisplay.textContent = `Übrige Zeit: ${remainingSeconds}`;
+        if (remainingSeconds <= 0) {
+            clearInterval(timer);
+            console.log("Time is up");
+            handleTimeout(currentQuestionIndex, questionsArray);
+        }
+    }, 1000);
+}
+
+function handleTimeout(currentQuestionIndex, questionsArray){
+    clearInterval(timer);
+    let points = -50
+    score = updateScore(points, score);
+
+    // Move to the next question
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questionsArray.length) {
+        showQuestion(questionsArray, currentQuestionIndex, score);
+    } else {
+        console.log("Quiz is over");
+    }
 }

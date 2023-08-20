@@ -139,3 +139,12 @@ form button[type="submit"] {
     position: absolute;
     font-size: 20px;
 }
+
+#timerDisplay{
+    font-family: 'Press Start 2P', cursive;
+    top: 5px;
+    right: 5px;
+    color: #ef7837;
+    position: absolute;
+    font-size: 20px;
+}
