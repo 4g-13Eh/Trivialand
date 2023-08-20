@@ -30,7 +30,7 @@ Live-URL: (https://dedf1sh-trivialand.netlify.app)
 
 2. Navigate to the project directory
    ```bash
-  cd quiz-time-app
+   cd quiz-time-app
 
 3. Open the index.html file in your preferred web browser.
 
