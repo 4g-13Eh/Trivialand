@@ -133,7 +133,11 @@ function showQuestion(questionsArray, currentQuestionIndex, score){
     });
 
     let subbtn = document.createElement('button');
-    subbtn.textContent = 'Nächste Frage';
+    if(currentQuestionIndex === questionsArray.length - 1){ // if last question
+        subbtn.textContent = 'Quiz beenden';
+    } else {
+        subbtn.textContent = 'Nächste Frage';
+    }
     subbtn.id = 'subbtn';
     subbtn.classList.add('subbtn');
     subbtn.disabled = true;
